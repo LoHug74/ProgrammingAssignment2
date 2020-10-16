@@ -23,10 +23,12 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## populate or retrieve the inverse from an object of type makeCacheMatrix
+## Return a matrix that is the inverse of 'x',
+## all the reverse caculation is done in this function
 
 cacheSolve <- function(x, ...) {
-                ## Return a matrix that is the inverse of 'x'
+                
                 s <- x$getinv() # retrieve the inverse from the object passed in as the argument. First, it calls the getinv() function from makeCacheMatrix on the input object
                 if(!is.null(s)) { # checks if s is not null, then retrieve the cached value
                                 message("getting cached data")
