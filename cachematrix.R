@@ -7,19 +7,19 @@
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
-                      s <- NULL
-                      set <- function(y) {
-                              x <<- y # Assign the input argument to the x object in the parent environment
-                              s <<- NULL # clears any value of m that had been cached by a prior execution of cacheSolve
-                              }
-                      get <- function() x # retrieves x from the parent environment of makeCacheMatrix
-                      setinv <- function(inv) s <<- inv #  assign the inv argument to the value of s in the parent environment
-                      getinv <- function() s # retrieves s from the parent environment of makeCacheMatrix
-                      list(
-                            set = set, get = get,
-                            setinv = setinv,
-                            getinv = getinv
-                           )
+  s <- NULL
+  set <- function(y) {
+    x <<- y # Assign the input argument to the x object in the parent environment
+    s <<- NULL # clears any value of m that had been cached by a prior execution of cacheSolve
+  }
+  get <- function() x # retrieves x from the parent environment of makeCacheMatrix
+  setinv <- function(inv) s <<- inv #  assign the inv argument to the value of s in the parent environment
+  getinv <- function() s # retrieves s from the parent environment of makeCacheMatrix
+  list(
+    set = set, get = get,
+    setinv = setinv,
+    getinv = getinv
+  )
 }
 
 
@@ -28,14 +28,14 @@ makeCacheMatrix <- function(x = matrix()) {
 ## all the reverse caculation is done in this function
 
 cacheSolve <- function(x, ...) {
-                
-                s <- x$getinv() # retrieve the inverse from the object passed in as the argument. First, it calls the getinv() function from makeCacheMatrix on the input object
-                if(!is.null(s)) { # checks if s is not null, then retrieve the cached value
-                                message("getting cached data")
-                                return(s)
-                                }
-                data <- x$get() # here s is null, so retrieves x from cached env. 
-                s <- solve(data, ...) # computes the inverse of the retrieved x
-                x$setinv(s) # calls setinv on s, to cach for later usage
-                s # returns s, ie, the inverse of x
+  
+  s <- x$getinv() # retrieve the inverse from the object passed in as the argument. First, it calls the getinv() function from makeCacheMatrix on the input object
+  if(!is.null(s)) { # checks if s is not null, then retrieve the cached value
+    message("getting cached data")
+    return(s)
+  }
+  data <- x$get() # here s is null, so retrieves x from cached env. 
+  s <- solve(data, ...) # computes the inverse of the retrieved x
+  x$setinv(s) # calls setinv on s, to cach for later usage
+  s # returns s, ie, the inverse of x
 }
